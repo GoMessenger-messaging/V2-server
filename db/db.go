@@ -6,11 +6,11 @@ import (
 )
 
 func Initialize(conf conf.Conf) {
-	go gotables.RunServer(conf.DBConf)
+	go gotables.RunServer(conf.DBMSConf)
 }
 
 func TestConnection(conf conf.Conf) error {
 	var err error
-	err = gotables.TestServer(conf.DBConf)
+	err = gotables.TestServer(conf.DBMSConf)
 	return err
 }

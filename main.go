@@ -6,6 +6,8 @@ import (
 	"git.jereileu.ch/gomessenger/gomessenger/server/server"
 	"log"
 	"os"
+	"strconv"
+	"time"
 )
 
 const (
@@ -19,13 +21,17 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Println("initialising database...")
-	db.Initialize(config)
-	log.Println("Successfully initialised database!")
-	log.Println("trying to contact database...")
+	if config.DBMSRun {
+		log.Println("initialising dbms...")
+		db.Initialize(config)
+		log.Println("successfully initialised dbms!")
+		log.Println("waiting for the dbms to boot... (" + strconv.Itoa(config.DBMSBootTime) + "s)")
+		time.Sleep(time.Duration(config.DBMSBootTime) * time.Second)
+	}
+	log.Println("trying to contact dbms...")
 	err = db.TestConnection(config)
 	if err != nil {
-		log.Fatalln("failed to establish a connection with the database!")
+		log.Fatalln("failed to establish a connection with the dbms!")
 	}
 	server.Run(config)
 }

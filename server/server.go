@@ -11,8 +11,8 @@ func Run(config conf.Conf) {
 
 	})
 	if config.HTTPS {
-		log.Fatalln(http.ListenAndServeTLS(":"+config.Port, config.SSLCert, config.SSLKey, nil))
+		log.Fatalln(http.ListenAndServeTLS(config.Port, config.SSLCert, config.SSLKey, nil))
 	} else {
-		log.Fatalln(http.ListenAndServe(":"+config.Port, nil))
+		log.Fatalln(http.ListenAndServe(config.Port, nil))
 	}
 }
