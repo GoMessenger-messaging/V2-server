@@ -19,7 +19,9 @@ func main() {
 	location := os.Getenv(ConfigEnvvar)
 	config, err := conf.Load(location)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println("warning: failed to find config file! using default configuration!")
+	} else {
+		log.Println("successfully loaded config!")
 	}
 	if config.DBMSRun {
 		log.Println("initialising dbms...")
@@ -32,6 +34,12 @@ func main() {
 	err = db.TestConnection(config)
 	if err != nil {
 		log.Fatalln("failed to establish a connection with the dbms!")
+	}
+	log.Println("successfully contacted dbms!")
+	if config.HTTPS {
+		log.Println("server started at https://127.0.0.1" + config.Port)
+	} else {
+		log.Println("server started at http://127.0.0.1" + config.Port)
 	}
 	server.Run(config)
 }

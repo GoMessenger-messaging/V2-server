@@ -20,11 +20,14 @@ type Conf struct {
 func Load(location string) (Conf, error) {
 	data, err := os.ReadFile(location)
 	if err != nil {
-		return defaultConf(), nil
+		return defaultConf(), err
 	}
 	var conf Conf
 	err = json.Unmarshal(data, &conf)
-	return conf, err
+	if err != nil {
+		return defaultConf(), err
+	}
+	return conf, nil
 }
 
 func defaultConf() Conf {
