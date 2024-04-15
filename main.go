@@ -12,6 +12,7 @@ import (
 
 const (
 	ConfigEnvvar = "GM_CONFIG"
+	Version      = "0.0.0"
 )
 
 func main() {
@@ -36,10 +37,18 @@ func main() {
 		log.Fatalln("failed to establish a connection with the dbms!")
 	}
 	log.Println("successfully contacted dbms!")
+	log.Println("==================== GoTables server " + Version + " ====================")
 	if config.HTTPS {
 		log.Println("server started at https://127.0.0.1" + config.Port)
 	} else {
 		log.Println("server started at http://127.0.0.1" + config.Port)
 	}
+	log.Println("press 'Ctrl' + 'C' to stop this program")
+	end := ""
+	for i := 0; i < 58+len(Version); i++ {
+		end += "="
+	}
+	log.Println(end)
+	log.Println("")
 	server.Run(config)
 }
