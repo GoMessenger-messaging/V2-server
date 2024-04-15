@@ -22,7 +22,7 @@ func Load(location string) (Conf, error) {
 	if err != nil {
 		return defaultConf(), err
 	}
-	var conf Conf
+	conf := defaultConf()
 	err = json.Unmarshal(data, &conf)
 	if err != nil {
 		return defaultConf(), err
@@ -49,7 +49,7 @@ func defaultConf() Conf {
 		HTTPS:        false,
 		SSLCert:      "",
 		SSLKey:       "",
-		DBMSRun:      true,
+		DBMSRun:      false,
 		DBMSBootTime: 10,
 	}
 }
