@@ -1,7 +1,7 @@
 package db
 
 import (
-	"git.jereileu.ch/gomessenger/gomessenger/server/conf"
+	"git.jereileu.ch/gomessenger/gomessenger/gm-server/conf"
 	"git.jereileu.ch/gotables/client/go/gotables"
 )
 

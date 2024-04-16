@@ -1,4 +1,4 @@
-module git.jereileu.ch/gomessenger/gomessenger/server
+module git.jereileu.ch/gomessenger/gomessenger/gm-server
 
 go 1.22.2
 

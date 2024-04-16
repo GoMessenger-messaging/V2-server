@@ -1,9 +1,9 @@
 package main
 
 import (
-	"git.jereileu.ch/gomessenger/gomessenger/server/conf"
-	"git.jereileu.ch/gomessenger/gomessenger/server/db"
-	"git.jereileu.ch/gomessenger/gomessenger/server/server"
+	"git.jereileu.ch/gomessenger/gomessenger/gm-server/conf"
+	"git.jereileu.ch/gomessenger/gomessenger/gm-server/db"
+	"git.jereileu.ch/gomessenger/gomessenger/gm-server/server"
 	"log"
 	"os"
 	"strconv"

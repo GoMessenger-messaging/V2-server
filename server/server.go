@@ -1,8 +1,8 @@
 package server
 
 import (
-	"git.jereileu.ch/gomessenger/gomessenger/server/assets"
-	"git.jereileu.ch/gomessenger/gomessenger/server/conf"
+	"git.jereileu.ch/gomessenger/gomessenger/gm-server/assets"
+	"git.jereileu.ch/gomessenger/gomessenger/gm-server/conf"
 	"log"
 	"net/http"
 	"strings"
