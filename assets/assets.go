@@ -1,7 +1,5 @@
 package assets
 
-import "git.jereileu.ch/gomessenger/gomessenger/gm-server/conf"
-
-func GetAsset(config conf.Conf) {
+func GetAsset(location string, assetDir string) {
 	return
 }

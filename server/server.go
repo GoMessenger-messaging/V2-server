@@ -22,7 +22,7 @@ func Run(config conf.Conf) {
 		path := strings.Split(r.URL.Path, "/")
 		path = path[2:]
 
-		assets.GetAsset(config)
+		assets.GetAsset(connectPath(path), config.AssetDir)
 		w.WriteHeader(418)
 	})
 	if config.HTTPS {
@@ -30,4 +30,15 @@ func Run(config conf.Conf) {
 	} else {
 		log.Fatalln(http.ListenAndServe(config.Port, nil))
 	}
+}
+
+func connectPath(path []string) string {
+	var out string
+	for i := 0; i < len(path); i++ {
+		out += path[i]
+		if i != len(path)-1 {
+			out += "/"
+		}
+	}
+	return out
 }
