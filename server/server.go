@@ -9,21 +9,29 @@ import (
 )
 
 func Run(config conf.Conf) {
+	http.HandleFunc("/assets/", func(w http.ResponseWriter, r *http.Request) {
+		path := strings.Split(r.URL.Path, "/")
+		path = path[2:]
+
+		data, contentType, err := assets.GetAsset(connectPath(path), config.AssetDir)
+		if err != nil {
+			w.WriteHeader(404)
+		} else {
+			w.Header().Set("Content-Type", contentType)
+			_, err := w.Write(data)
+			if err != nil {
+				w.WriteHeader(500)
+			}
+		}
+	})
+	http.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
+		path := strings.Split(r.URL.Path, "/")
+		path = path[2:]
+
+		w.WriteHeader(418)
+	})
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(404)
-	})
-	http.HandleFunc("/api", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.Split(r.URL.Path, "/")
-		path = path[2:]
-
-		w.WriteHeader(418)
-	})
-	http.HandleFunc("/assets", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.Split(r.URL.Path, "/")
-		path = path[2:]
-
-		assets.GetAsset(connectPath(path), config.AssetDir)
-		w.WriteHeader(418)
 	})
 	if config.HTTPS {
 		log.Fatalln(http.ListenAndServeTLS(config.Port, config.SSLCert, config.SSLKey, nil))
