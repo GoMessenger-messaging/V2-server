@@ -1,6 +1,7 @@
 package server
 
 import (
+	"git.jereileu.ch/gomessenger/gomessenger/gm-server/api"
 	"git.jereileu.ch/gomessenger/gomessenger/gm-server/assets"
 	"git.jereileu.ch/gomessenger/gomessenger/gm-server/conf"
 	"log"
@@ -28,7 +29,12 @@ func Run(config conf.Conf) {
 		path := strings.Split(r.URL.Path, "/")
 		path = path[2:]
 
-		w.WriteHeader(418)
+		if len(path) == 0 {
+			w.WriteHeader(404)
+		} else {
+			api.Api(path, config)
+			w.WriteHeader(418)
+		}
 	})
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(404)
