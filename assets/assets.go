@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func GetAsset(location string, assetDir string) (data []byte, contentType string, err error) {
-	path := strings.TrimSuffix(assetDir, "/") + "/" + location
+func GetAsset(location string, dir string) (data []byte, contentType string, err error) {
+	path := strings.TrimSuffix(dir, "/") + "/" + location
 	return getFile(path)
 }
 

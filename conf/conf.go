@@ -11,6 +11,7 @@ type Conf struct {
 	DBMSConf     gotables.Config `json:"dbms_conf"`
 	Port         string          `json:"port"`
 	AssetDir     string          `json:"asset_dir"`
+	UploadDir    string          `json:"upload_dir"`
 	HTTPS        bool            `json:"https"`
 	SSLCert      string          `json:"ssl_cert"`
 	SSLKey       string          `json:"ssl_key"`
@@ -48,6 +49,7 @@ func defaultConf() Conf {
 		},
 		Port:         ":8080",
 		AssetDir:     "assets",
+		UploadDir:    "uploads",
 		HTTPS:        false,
 		SSLCert:      "",
 		SSLKey:       "",

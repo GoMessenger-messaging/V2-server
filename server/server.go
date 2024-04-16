@@ -10,6 +10,21 @@ import (
 )
 
 func Run(config conf.Conf) {
+	http.HandleFunc("/uploads/", func(w http.ResponseWriter, r *http.Request) {
+		path := strings.Split(r.URL.Path, "/")
+		path = path[2:]
+
+		data, contentType, err := assets.GetAsset(connectPath(path), config.UploadDir)
+		if err != nil {
+			w.WriteHeader(404)
+		} else {
+			w.Header().Set("Content-Type", contentType)
+			_, err := w.Write(data)
+			if err != nil {
+				w.WriteHeader(500)
+			}
+		}
+	})
 	http.HandleFunc("/assets/", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.Split(r.URL.Path, "/")
 		path = path[2:]
