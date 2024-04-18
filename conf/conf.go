@@ -17,6 +17,7 @@ type Conf struct {
 	SSLKey       string          `json:"ssl_key"`
 	DBMSRun      bool            `json:"dbms_run"`
 	DBMSBootTime int             `json:"dbms_boot_time"`
+	SessionLen   int             `json:"session_len"`
 }
 
 func Load(location string) (Conf, error) {
@@ -55,5 +56,6 @@ func defaultConf() Conf {
 		SSLKey:       "",
 		DBMSRun:      false,
 		DBMSBootTime: 10,
+		SessionLen:   5,
 	}
 }

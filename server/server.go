@@ -4,6 +4,7 @@ import (
 	"git.jereileu.ch/gomessenger/gomessenger/gm-server/api"
 	"git.jereileu.ch/gomessenger/gomessenger/gm-server/assets"
 	"git.jereileu.ch/gomessenger/gomessenger/gm-server/conf"
+	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -47,7 +48,7 @@ func Run(config conf.Conf) {
 		if len(path) == 0 {
 			w.WriteHeader(404)
 		} else {
-			data, statusCode := api.Api(path, config)
+			data, statusCode := api.Api(readBody(r), path, config)
 			w.WriteHeader(statusCode)
 			_, err := w.Write(data)
 			if err != nil {
@@ -74,4 +75,12 @@ func connectPath(path []string) string {
 		}
 	}
 	return out
+}
+
+func readBody(r *http.Request) []byte {
+	data, err := io.ReadAll(r.Body)
+	if err != nil {
+		return nil
+	}
+	return data
 }
