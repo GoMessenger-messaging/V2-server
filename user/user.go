@@ -1,13 +1,3 @@
-/*
-User:
-username	string
-password	string
-sessions	[][]string
-name		string
-status		string
-picture		string
-*/
-
 package user
 
 import (
@@ -16,9 +6,34 @@ import (
 	"git.jereileu.ch/gomessenger/gomessenger/gm-server/auth"
 	"git.jereileu.ch/gomessenger/gomessenger/gm-server/conf"
 	"git.jereileu.ch/gotables/client/go/gotables"
+	"github.com/fatih/structs"
+	"github.com/mitchellh/mapstructure"
 	"math/rand"
 	"time"
 )
+
+type User struct {
+	Username string `mapstructure:"username"`
+	Password string `mapstructure:"password"`
+	Name     string `mapstructure:"name"`
+	Status   string `mapstructure:"status"`
+	Picture  string `mapstructure:"picture"`
+}
+
+func (u *User) FromRow(row map[string]any) error {
+	var user User
+	err := mapstructure.Decode(row, &user)
+	if err != nil {
+		return errors.New("failed to convert row to User")
+	}
+	*u = user
+	return nil
+}
+
+func (u *User) ToRow() map[string]any {
+	row := structs.Map(*u)
+	return row
+}
 
 func ValidateCredentials(username string, password string, config conf.Conf) (string, error) {
 	user, err := gotables.ShowTableConditions(
